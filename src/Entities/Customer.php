@@ -3,26 +3,23 @@
 
 namespace Ralphowino\HelpCrunch\Entities;
 
-
 class Customer extends Base
 {
-
     const SORT_BY_FIRST_SEEN = 'customer.firstSeen';
 
     const SORT_BY_LAST_SEEN = 'customer.lastSeen';
 
     public function getAll($sortBy = self::SORT_BY_FIRST_SEEN, int $limit = 100, $offset = 0)
     {
-
         $response = $this->client->get('/customers', [
             'sort' => $sortBy,
             'limit' => $limit,
-            'offset' => $offset
+            'offset' => $offset,
         ]);
         $this->handleErrors($response);
+
         return $response->json('data');
     }
-
 
     public function search(array $filters, $sortBy = self::SORT_BY_FIRST_SEEN, int $limit = 100, $offset = 0)
     {
@@ -30,15 +27,17 @@ class Customer extends Base
             'filter' => $filters,
             'sort' => $sortBy,
             'limit' => $limit,
-            'offset' => $offset
+            'offset' => $offset,
         ]);
         $this->handleErrors($response);
+
         return $response->json();
     }
 
     public function get(int $id)
     {
         $response = $this->client->get("/customers/$id");
+
         return $response->json('data');
     }
 
@@ -49,11 +48,12 @@ class Customer extends Base
                 [
                     'field' => 'customers.userId',
                     'operator' => '=',
-                    'value' => $userId
-                ]
+                    'value' => $userId,
+                ],
             ],
-            'limit' => 1
+            'limit' => 1,
         ]);
+
         return $response->json('data');
     }
 
@@ -61,6 +61,7 @@ class Customer extends Base
     {
         $response = $this->client->post("/customers", $data);
         $this->handleErrors($response);
+
         return $response->json();
     }
 
@@ -68,6 +69,7 @@ class Customer extends Base
     {
         $response = $this->client->put("/customers/$id", $data);
         $this->handleErrors($response);
+
         return $response->json();
     }
 
@@ -75,6 +77,7 @@ class Customer extends Base
     {
         $response = $this->client->put('/customers/batch', $data);
         $this->handleErrors($response);
+
         return $response->json();
     }
 
@@ -82,6 +85,7 @@ class Customer extends Base
     {
         $response = $this->client->put("/customers/$id/tags", compact('tags'));
         $this->handleErrors($response);
+
         return $response->json();
     }
 
@@ -89,6 +93,7 @@ class Customer extends Base
     {
         $response = $this->client->delete("/customers/$id/tags", compact('tags'));
         $this->handleErrors($response);
+
         return $response->json();
     }
 
@@ -96,16 +101,15 @@ class Customer extends Base
     {
         $response = $this->client->delete("/customers/$id");
         $this->handleErrors($response);
+
         return $response->json();
     }
-
 
     public function createEvent(int $customer, string $name, array $data)
     {
-        $response = $this->client->post("/events", compact('customer','name','data'));
+        $response = $this->client->post("/events", compact('customer', 'name', 'data'));
         $this->handleErrors($response);
+
         return $response->json();
     }
-
-
 }

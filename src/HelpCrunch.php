@@ -13,7 +13,7 @@ class HelpCrunch
     public function __construct()
     {
         $token = config('services.helpcrunch.key');
-        if (!$token) {
+        if (! $token) {
             throw new \Exception('Helpcrunch key missing. Please set in config service.helpcrunch.key');
         }
         $this->client = Http::baseUrl('https://api.helpcrunch.com/v1/')->withToken($token);

@@ -38,6 +38,4 @@ class HelpCrunchCustomerTest extends TestCase
         $this->assertEquals($response['userId'], $customer['userId']);
         $this->assertEquals($response['email'], $customer['email']);
     }
-
-
 }

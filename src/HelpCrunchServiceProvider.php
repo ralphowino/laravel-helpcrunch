@@ -2,14 +2,9 @@
 
 namespace Ralphowino\HelpCrunch;
 
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Ralphowino\HelpCrunch\Commands\HelpCrunchCommand;
+use Illuminate\Support\ServiceProvider;
 
-class HelpCrunchServiceProvider extends PackageServiceProvider
+class HelpCrunchServiceProvider extends ServiceProvider
 {
-    public function configurePackage(Package $package): void
-    {
-        $package->name('helpcrunch')->hasConfigFile();
-    }
+
 }

@@ -2,19 +2,21 @@
 
 namespace Ralphowino\HelpCrunch\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Ralphowino\HelpCrunch\HelpCrunch;
 use Ralphowino\HelpCrunch\HelpCrunchServiceProvider;
 
 class TestCase extends Orchestra
 {
+    /**
+     * @var \Ralphowino\HelpCrunch\HelpCrunch
+     */
+    protected HelpCrunch $helpCrunch;
+
     public function setUp(): void
     {
         parent::setUp();
-
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Ralphowino\\HelpCrunch\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
+        $this->helpCrunch = new HelpCrunch();
     }
 
     protected function getPackageProviders($app)
@@ -26,16 +28,6 @@ class TestCase extends Orchestra
 
     public function getEnvironmentSetUp($app)
     {
-        $app['config']->set('database.default', 'sqlite');
-        $app['config']->set('database.connections.sqlite', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-            'prefix' => '',
-        ]);
-
-        /*
-        include_once __DIR__.'/../database/migrations/create_helpcrunch_table.php.stub';
-        (new \CreatePackageTable())->up();
-        */
+        $app['config']->set('services.helpcrunch.key', 'NjhiMjEzNmY2MzlkYmYxMzg4NjgyMDgy1uEdvlUSHyy7GpqSQIqqDn1RxS4c7CLIVZXdGGG/zn/P3jZMVT98eDGJzJ1SYxqX1bUvgSeV1uFA8YIUe6qZQBgmi+qTwWxyiAit4FqTHspQ37o8CvZB9oVJ+2cOE+/aGvJF3hjjFgtahk1Zz/yg4mKXAoMLMNIyQhGGAgX+fwgfZquubuADy6cmkOPR7SvO1978b6r2kAYrONv435e1m9FuHTZG7R5kmDQMllf5BG4Afb3KketfMO4M5k1Hfu4YgB3UYx+kBa2ziBeGuH3wCA==');
     }
 }
